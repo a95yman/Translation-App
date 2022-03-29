@@ -1,0 +1,86 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body oncontextmenu="return true;">
+<a id="text"></a>
+
+<div id="google_translate_element"></div>
+<button onclick="Send('en','moi')">Click</button>
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+var from = urlParams.get('source');
+
+
+    var translatedc=0;
+
+
+
+     function Send(to, text){
+          setTimeout(function(){
+                if(translatedc==0){
+                 JSInterface.ReceiveText(text);
+                }
+            }, 9000);
+            var myTimer = setInterval(function(){
+            if(document.getElementById("google_translate_element").innerHTML.length>0){
+                setTimeout(function(){
+                 changeLanguageByButtonClick(to, text);
+                },1000);
+                clearInterval(myTimer);
+            }
+
+        },
+                   100);
+    }
+function googleTranslateElementInit() {
+    //JSInterface.Show(from);
+  new google.translate.TranslateElement({pageLanguage: from}, 'google_translate_element');
+}
+let startTime = performance.now();
+async function refreshUI(){
+    if(performance.now() > startTime + 5000){    //You can change the 20 to how often you want to refresh the UI in milliseconds
+        startTime = performance.now();
+        await new Promise(r => setTimeout(r, 0));
+    }
+}
+
+function changeLanguageByButtonClick(t, text) {
+ //JSInterface.Show(from+"\n"+t+"\n"+text);
+    translatedc=0;
+    document.getElementById('text').innerHTML=text;
+//refreshUI();
+ var selectField = document.querySelector("#google_translate_element select");
+  for(var i=0; i < selectField.children.length; i++){
+    var option = selectField.children[i];
+    // find desired langauge and change the former language of the hidden selection-field
+    if(option.value==t){
+       selectField.selectedIndex = i;
+       // trigger change event afterwards to make google-lib translate this side
+       selectField.dispatchEvent(new Event('change'));
+
+        var myTimer = setInterval(function(){
+
+                var translated = document.getElementById("text").innerText;
+            if(text != translated){
+                translatedc=1;
+               JSInterface.ReceiveText(translated);
+                clearInterval(myTimer);
+            }
+
+        },
+                   100);
+
+       break;
+    }
+  }
+  //JSInterface.translate();
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

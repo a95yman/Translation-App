@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">iTranslate Pro</string>
+    <string name="copyright_madeby">Copyright icons created by Smashicons - Flaticon</string>
+    <string name="copyright_link">https://www.flaticon.com/free-icons/copyright</string>
+    <string name="warning_madeby">Danger icons created by Good Ware - Flaticon</string>
+    <string name="warning_link">https://www.flaticon.com/free-icons/danger</string>
+    <string name="logo_madeby">Translate icons created by Freepik - Flaticon</string>
+    <string name="logo_link">https://www.flaticon.com/free-icons/translate</string>
+    <string name="announce_madeby">About stickers created by inipagistudio - Flaticon</string>
+    <string name="announce_link">https://www.flaticon.com/free-icons/about</string>
+</resources>
